@@ -1,0 +1,14 @@
+Source: eta-exit
+Section: misc
+Priority: optional
+Maintainer: Fatih altun <fatih.altun@pardus.org.tr>
+Build-Depends: debhelper (>=11~), dh-python, python3-all, python3-setuptools
+Standards-Version: 4.1.4
+Homepage: https://www.pardus.org.tr/
+X-Python3-Version: >= 3.7
+
+Package: eta-exit
+Architecture: amd64
+Depends: ${misc:Depends}, ${python3:Depends}
+Description: Exit from ETA
+ A interface for exiting ETA.
