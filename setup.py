@@ -7,7 +7,10 @@ from setuptools import setup, find_packages
 data_files = [
     ("/usr/share/applications", ["tr.org.pardus.eta-exit.desktop"]),
     ("/usr/share/locale/tr/LC_MESSAGES", ["po/tr/LC_MESSAGES/eta-exit.mo"]),
-    ("/usr/share/eta/eta-exit", ["eta-exit.glade", "icon.svg"])
+    ("/usr/share/eta/eta-exit", ["eta-exit.glade", "icon.svg"]),
+    ("/usr/share/icons", ["myshutdown.png"]),
+    ("/usr/share/icons", ["start.svg"]),
+    ("/usr/share/icons/Adwaita/48x48/legacy", ["system-shutdown.png"])
 ]
 
 setup(

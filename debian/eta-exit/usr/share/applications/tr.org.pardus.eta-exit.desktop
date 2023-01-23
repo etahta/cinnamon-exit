@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.1
+Type=Application
+Name=Eta Exit
+Name[tr]=Eta Çıkış
+GenericName=Eta Exit Application
+GenericName[tr]=Eta Çıkış Uygulaması
+Comment=Eta'dan çık
+Comment[tr]=Exit from Eta
+TryExec=eta-exit
+Exec=eta-exit
+Icon=/usr/share/eta/eta-exit/icon.svg
+Terminal=false
+Categories=Utility;GTK;

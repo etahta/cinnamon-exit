@@ -1,0 +1,14 @@
+3c2b53b467d63264f119a028cc517093  usr/bin/eta-exit
+fa6d30e4ac16c5c59a6fcd8058e68c35  usr/lib/python3/dist-packages/ETA_Exit-0.3.0.egg-info/PKG-INFO
+68b329da9893e34099c7d8ad5cb9c940  usr/lib/python3/dist-packages/ETA_Exit-0.3.0.egg-info/dependency_links.txt
+d41d8cd98f00b204e9800998ecf8427e  usr/lib/python3/dist-packages/ETA_Exit-0.3.0.egg-info/requires.txt
+68b329da9893e34099c7d8ad5cb9c940  usr/lib/python3/dist-packages/ETA_Exit-0.3.0.egg-info/top_level.txt
+6671e74115165ee9d9acd26d1127c139  usr/share/applications/tr.org.pardus.eta-exit.desktop
+86a0d820fd30a0c5019f9dcbf364ba05  usr/share/doc/eta-exit/changelog.gz
+31886a5f5243fd713cd3f2f8bf419236  usr/share/doc/eta-exit/copyright
+c1dfa3f19837a16cbe7fd2e83e280fd0  usr/share/eta/eta-exit/eta-exit.glade
+c1a6600b2dde391f73517a1cb445e640  usr/share/eta/eta-exit/icon.svg
+a25218cc16708842889987bb785962f6  usr/share/icons/Adwaita/48x48/legacy/system-shutdown.png
+a25218cc16708842889987bb785962f6  usr/share/icons/myshutdown.png
+53ed9c42ca05593a78990bf8cd9fbbb5  usr/share/icons/start.svg
+8d9b1092a7b820dc1b2639379ebe6764  usr/share/locale/tr/LC_MESSAGES/eta-exit.mo

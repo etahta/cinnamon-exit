@@ -1,0 +1,215 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+
+import getpass
+import gettext
+import locale
+import os
+import subprocess
+
+import gi
+
+gi.require_version("Gio", "2.0")
+gi.require_version("GObject", "2.0")
+gi.require_version("Gtk", "3.0")
+from gi.repository import Gio, GObject, Gtk
+from subprocess import check_output
+
+locale.setlocale(locale.LC_ALL, "")
+gettext.bindtextdomain("eta-exit", "/usr/share/locale/")
+gettext.textdomain("eta-exit")
+_ = gettext.gettext
+gettext.install("eta-exit", "/usr/share/locale/")
+
+
+class ETAExit(Gtk.Application):
+    def __init__(self, application_id, flags):
+        Gtk.Application.__init__(self, application_id=application_id, flags=flags)
+        self.connect("activate", self.new_window)
+
+    def new_window(self, *args):
+        ETAWindow(self)
+
+
+class ETAWindow(object):
+    def __init__(self, application):
+        self.Application = application
+
+        try:
+            ETAExitBuilderFileName = "/usr/share/eta/eta-exit/eta-exit.glade"
+            ETAExitBuilder = Gtk.Builder.new_from_file(ETAExitBuilderFileName)
+            ETAExitBuilder.connect_signals(self)
+        except GObject.GError:
+            print(_("Error reading GUI file:"), ETAExitBuilderFileName)
+            raise
+
+        self.username = getpass.getuser()
+
+        self.sessions = []
+        self.sid = []
+
+        seslist = check_output(["loginctl", "list-sessions", "--no-legend"]).decode("utf-8").splitlines()
+        try:
+            for i in seslist:
+                self.sessions.append(" ".join(i.split()).split(" "))
+        except:
+            print("error in self.sessions.append")
+            pass
+
+        self.LabelHeaderMain = ETAExitBuilder.get_object("LabelHeaderMain")
+        self.LabelHeaderMain.set_text(_("Exit: ") + self.username)
+
+        self.ButtonLogoutLabel = ETAExitBuilder.get_object("ButtonLogoutLabel")
+        self.ButtonLogoutLabel.set_text(_("Log Out"))
+
+        self.ButtonRestartLabel = ETAExitBuilder.get_object("ButtonRestartLabel")
+        self.ButtonRestartLabel.set_text(_("Restart"))
+
+        self.ButtonShutdownLabel = ETAExitBuilder.get_object("ButtonShutdownLabel")
+        self.ButtonShutdownLabel.set_text(_("Shut Down"))
+
+        self.ButtonLockLabel = ETAExitBuilder.get_object("ButtonLockLabel")
+        self.ButtonLockLabel.set_text(_("Lock"))
+
+        self.ButtonRestart = ETAExitBuilder.get_object("ButtonRestart")
+        self.ButtonShutdown = ETAExitBuilder.get_object("ButtonShutdown")
+        self.ButtonLock = ETAExitBuilder.get_object("ButtonLock")
+        self.ButtonRestricted = ETAExitBuilder.get_object("ButtonRestricted")
+
+        self.infolabel = ETAExitBuilder.get_object("infolabel")
+
+        self.ButtonLock.set_visible(True)
+
+        self.ButtonRestrictedLabel = ETAExitBuilder.get_object("ButtonRestrictedLabel")
+        self.ButtonRestrictedLabel.set_text(_("Restricted Mode"))
+
+        if self.username == "ogrenci" or self.username == "ogretmen":
+            self.ButtonRestricted.set_visible(True)
+
+        self.ButtonCancelLabel = ETAExitBuilder.get_object("ButtonCancelLabel")
+        self.ButtonCancelLabel.set_text(_("Cancel"))
+
+        if self.username == "ogrenci":
+            try:
+                for j in self.sessions:
+                    if j[2] == "ogretmen":
+                        self.sid.append(j[0])
+            except:
+                print("self.sid.append error")
+
+            if len(self.sid) > 1:
+                self.sid = self.sessionControl(self.sid)
+
+            if not self.sid:
+                self.ButtonRestricted.set_visible(False)
+                self.infolabel.set_visible(True)
+                self.infolabel.set_text("Oturumu açık yetkili hesabı bulunmamaktadır.")
+
+        if self.username == "ogretmen":
+            try:
+                for j in self.sessions:
+                    if j[2] == "ogrenci":
+                        self.sid.append(j[0])
+            except:
+                print("self.sid.append error")
+
+            if len(self.sid) > 1:
+                self.sid = self.sessionControl(self.sid)
+
+            if not self.sid:
+                self.ButtonRestricted.set_visible(False)
+                self.infolabel.set_visible(True)
+                self.infolabel.set_text("Öğrenci oturumu kapalı.")
+
+        self.WindowMain = ETAExitBuilder.get_object("WindowMain")
+        self.WindowMain.set_application(application)
+        self.WindowMain.show()
+
+    def onWindowClose(self, window):
+        self.WindowMain.destroy()
+
+    def onButtonLock(self, button):
+        os.system("cinnamon-screensaver-command -l")
+        self.WindowMain.destroy()
+
+    def onButtonLogout(self, button):
+        if self.username != "ogrenci":
+            #subprocess.Popen(["loginctl","terminate-session $XDG_SESSION_ID"])
+            os.system("loginctl terminate-session $XDG_SESSION_ID")
+        else:
+            sessions = []
+            sid = []
+            seslist = subprocess.check_output(["loginctl", "list-sessions", "--no-legend"]).decode("utf-8").splitlines()
+            try:
+                for i in seslist:
+                    sessions.append(" ".join(i.split()).split(" "))
+            except:
+                print("error in self.sessions.append")
+                pass
+            if sessions:
+                try:
+                    for i in sessions:
+                        if i[2] == "Debian-gdm":
+                            sid.append(i[0])
+                except:
+                    print("sid.append error")
+                    self.gdmScreen()
+                if sid:
+                    try:
+                        subprocess.Popen(["loginctl", "activate", sid[0]])
+                        self.WindowMain.destroy()
+                    except:
+                        print("loginctl activate error")
+                        self.gdmScreen()
+                else:
+                    self.gdmScreen()
+            else:
+                self.gdmScreen()
+
+    def onButtonRestart(self, button):
+        if self.username != "ogrenci":
+            subprocess.Popen(["systemctl", "reboot"])
+        else:
+            os.system('dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 '
+                      '"org.freedesktop.login1.Manager.Reboot" boolean:true')
+
+    def onButtonShutdown(self, button):
+        if self.username != "ogrenci":
+            subprocess.Popen(["systemctl", "poweroff"])
+        else:
+            os.system('dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 '
+                      '"org.freedesktop.login1.Manager.PowerOff" boolean:true')
+
+    def onButtonRestricted(self, button):
+        subprocess.Popen(["eta-restricted-mode"])
+        self.WindowMain.destroy()
+
+    def gdmScreen(self):
+        os.system("cinnamon-screensaver-command -l")
+                  #'org.gnome.DisplayManager --method '
+                  #'org.gnome.DisplayManager.LocalDisplayFactory.CreateTransientDisplay')
+        self.WindowMain.destroy()
+
+    def sessionControl(self, list):
+        # In case of multiple active sessions,
+        # we check whether gnome-shell is active on them.
+        realsid = []
+        try:
+            for id in list:
+                if "/usr/bin/gnome-shell" in check_output(["loginctl", "session-status", id]).decode("utf-8"):
+                    realsid = [id]
+        except:
+            print("session-status error")
+            realsid = []
+        return realsid
+
+
+def main():
+    Application = ETAExit("tr.org.pardus.eta-exit", Gio.ApplicationFlags.FLAGS_NONE)
+
+    Application.run()
+
+
+if __name__ == "__main__":
+    main()
