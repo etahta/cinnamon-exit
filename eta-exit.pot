@@ -1,0 +1,50 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the eta-exit package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: eta-exit 0.1.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-03-21 19:59+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: eta-exit:44
+msgid "Error reading GUI file:"
+msgstr ""
+
+#: eta-exit:61
+msgid "Exit: "
+msgstr ""
+
+#: eta-exit:64
+msgid "Log Out"
+msgstr ""
+
+#: eta-exit:67
+msgid "Restart"
+msgstr ""
+
+#: eta-exit:70
+msgid "Shut Down"
+msgstr ""
+
+#: eta-exit:73
+msgid "Lock"
+msgstr ""
+
+#: eta-exit:85
+msgid "Restricted Mode"
+msgstr ""
+
+#: eta-exit:91
+msgid "Cancel"
+msgstr ""

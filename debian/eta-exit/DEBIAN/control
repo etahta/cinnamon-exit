@@ -1,0 +1,11 @@
+Package: eta-exit
+Version: 0.4.2
+Architecture: amd64
+Maintainer: Fatih altun <fatih.altun@pardus.org.tr>
+Installed-Size: 139
+Depends: python3-gi, python3:any (>= 3.7~)
+Section: misc
+Priority: optional
+Homepage: https://www.pardus.org.tr/
+Description: Exit from ETA
+ A interface for exiting ETA.

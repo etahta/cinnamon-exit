@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ETA Exit 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-28 01:48+0300\n"
+"POT-Creation-Date: 2023-03-21 19:59+0300\n"
 "PO-Revision-Date: 2020-11-28 01:48+0300\n"
 "Last-Translator: Fatih Altun <fatih.altun@pardus.org.tr>\n"
 "Language-Team: Turkish <gelistirici@pardus.org.tr>\n"
@@ -20,35 +20,35 @@ msgstr ""
 "X-Generator: Gtranslator 3.30.1\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
-#: eta-exit:43
+#: eta-exit:44
 msgid "Error reading GUI file:"
 msgstr "GUI dosyasını okumada hata:"
 
-#: eta-exit:49
+#: eta-exit:61
 msgid "Exit: "
 msgstr "Çıkış: "
 
-#: eta-exit:52
+#: eta-exit:64
 msgid "Log Out"
 msgstr "Oturumu Kapat"
 
-#: eta-exit:55
+#: eta-exit:67
 msgid "Restart"
 msgstr "Yeniden Başlat"
 
-#: eta-exit:58
+#: eta-exit:70
 msgid "Shut Down"
 msgstr "Kapat"
 
-#: eta-exit:61
+#: eta-exit:73
 msgid "Lock"
 msgstr "Ekranı Kilitle"
 
-#: eta-exit:64
+#: eta-exit:85
 msgid "Restricted Mode"
 msgstr "Kısıtlı Mod"
 
-#: eta-exit:71
+#: eta-exit:91
 msgid "Cancel"
 msgstr "İptal"
 
